@@ -42,7 +42,6 @@ let getShopDetail = (req) => {
  let getShopFood = (req) => {
     const shopName = req.query.shopName;
     const food = req.query.foodname;
-    console.log(food)
     let food_sql = `select * from food where food.s_name=${shopName};`
      if (food) {
         food_sql = `select * from food where food.s_name=${shopName} and foodname = ${food} ;`

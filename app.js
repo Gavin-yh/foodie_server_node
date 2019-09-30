@@ -10,6 +10,9 @@ var cityRouter = require('./routes/city');
 var usersRouter = require('./routes/users');
 var imgBarRouter = require('./routes/imgBar');
 var loginRouter = require('./routes/login');
+
+var Order = require('./routes/order');
+
 const session = require('express-session');
 const formidableMiddleware = require('express-formidable');
 
@@ -60,6 +63,7 @@ app.use('/',cityRouter);
 app.use('/',imgBarRouter);
 app.use('/',loginRouter);
 app.use('/api', usersRouter);
+app.use('/',Order);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

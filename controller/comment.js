@@ -8,7 +8,7 @@ let getCommon = (req) => {
     const query = req.query.foodname;
     const sql = `select * from comment where f_name ="${query}" order by id desc;`
     return exe(sql).then((res) => {
-        if (res.length) {
+        if (res && res.length) {
             return new successModel(res);
         }else {
             return new errorModel();

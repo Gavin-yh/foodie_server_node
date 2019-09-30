@@ -7,7 +7,7 @@ const {successModel, errorModel } = require('../model/resModel')
  let getImgBar = (param) => {
     const sql = `select * from imgbar where shopname = "${param.shopname}"`;
     return exe(sql).then((res) => {
-        if (res.length) {
+        if (res && res.length) {
             return new successModel(res);
         }else {
             return new errorModel();

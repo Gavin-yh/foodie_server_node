@@ -7,7 +7,7 @@ let {
 } = require('../controller/home')
 
 /* GET allshop page. */
-router.get('/api/home', function(req, res, next) {
+router.get('/api/home', (req, res, next) => {
   getAllShop().then((result) => {
     if (result) {
       res.setHeader("Cache-Control","max-age=10000");
@@ -18,8 +18,12 @@ router.get('/api/home', function(req, res, next) {
 
 /**
  * get shopdetail
+ * 
+ * shopDetail 页面用到 --》提供一参数 shopName
+ * 
+ * foodDetail 页面用到 --》 提供两个参数 shopname foodname
  */
-router.get('/api/shopdetail',function(req, res, next){
+router.get('/api/shopdetail', (req, res, next) => {
   getShopDetail(req).then( (shop) => {
     getShopFood(req).then( (food) => {
       if (shop.statu === 0) {
@@ -29,6 +33,7 @@ router.get('/api/shopdetail',function(req, res, next){
     })
   })
 })
+
 module.exports = router;
 
 

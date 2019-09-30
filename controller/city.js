@@ -8,7 +8,7 @@ const {successModel, errorModel } = require('../model/resModel')
 let getCity = (req) => {
     const sql = `select * from city`
     return exe(sql).then((res) => {
-        if (res.length) {
+        if (res && res.length) {
             return new successModel(res);
         }else {
             return new errorModel();

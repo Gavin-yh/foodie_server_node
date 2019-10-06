@@ -1,4 +1,6 @@
 let mysql = require('mysql');
+let escape = require('mysql').escape;
+
 let { mysql_config } = require('./config');
 
 let con = mysql.createConnection(mysql_config);
@@ -14,7 +16,12 @@ function exe(sql) {
     })
 }
 
-module.exports = exe;
+module.exports = {  
+    exe,
+    escape
+}
+
+
 
 
 

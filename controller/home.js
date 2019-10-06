@@ -1,4 +1,5 @@
-const exe = require('../DB/mysql')
+const {exe, escape } = require('../DB/mysql')
+
 const {successModel, errorModel } = require('../model/resModel')
 
 /**

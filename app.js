@@ -16,7 +16,7 @@ var Order = require('./routes/order');
 const session = require('express-session');
 const formidableMiddleware = require('express-formidable');
 
-const cors = require('cors');
+const cors = require('cors'); //跨域
 
 const RedisStore = require('connect-redis')(session);
 
@@ -30,7 +30,7 @@ var app = express();
 app.use(cors({
             credentials: true, //是否带凭证cookie / token
             origin: 'http://localhost:3000', // web前端服务器地址
-            // origin: "http://100.64.107.215:3000"
+            // origin: "http://100.64.91.241:3000"
             // origin: '*' // 这样会出错
         })
       )
@@ -40,7 +40,19 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(formidableMiddleware());
+
+//关于数据签名，缓存验证
 // app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'public'), {
+//         etag: false
+// }));
+//返回的数据不存在验证缓存， 前端每次请求都是新的数据
+//若不关掉，前端会优先从缓存中去，请求不会是一个新的请求，导致一些问题，如评论：当评论完，刷新页面，评论的内容并没有更新，
+// 就是因为，前端通过etag验证，后端验证数据签名没有变，请求的数据会从缓存中取，不会派发一个新的请求。
+
+app.set('etag', false); // turn on
+
+
 
 //创建redis客服端
 const redisClient = require('./DB/redis');

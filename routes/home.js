@@ -10,7 +10,6 @@ let {
 router.get('/api/home', (req, res, next) => {
   getAllShop().then((result) => {
     if (result) {
-      res.setHeader("Cache-Control","max-age=10000");
       res.json(result);
     }
   })

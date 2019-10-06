@@ -10,7 +10,6 @@ let  {
 router.get('/api/city', (req, res, next) => {
     getCity(req).then((result) => {
         if(result.statu === 0) {
-            res.setHeader("Cache-Control","max-age=10000");
             res.json(result);
         }else{
             res.json([]);

@@ -5,18 +5,22 @@ const router = express.Router();
 let {
     userLogin
 } = require('../controller/login')
+
+let {
+    cryptoFun
+} = require('../md5')
+
 /**
  * 用户登入的路由
  */
 router.post('/api/login', (req, res, next) => {
     const { userName, userPas } = req.fields;
-    userLogin( userName, userPas ).then( result => {
+    userLogin( userName, cryptoFun(userPas) ).then( result => {
 
         //设置session
         req.session.userName = userName;
         req.session.userPas = userPas;
 
-        res.setHeader("Cache-Control","max-age=10000");
         result.userName = userName;
         res.json({
            result

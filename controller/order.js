@@ -1,4 +1,4 @@
-let exe  = require ('../DB/mysql.js')
+const {exe, escape } = require('../DB/mysql')
 let { successModel, errorModel } = require('../model/resModel')
 
 
@@ -56,8 +56,8 @@ let changeOrderStatu = (req) => {
 /**
  * 获取所有的订单
  */
-let getAllOrder = () => {
-    const sql = `select * from orderTable order by id desc `
+let getAllOrder = (userName) => {
+    const sql = `select * from orderTable where user_name="${userName}" order by id desc `
     return exe(sql).then( res => {
         if (res && res.length > 0){
             return new successModel(res);
@@ -70,8 +70,8 @@ let getAllOrder = () => {
 /**
  * 按照类型获取订单  用于 待使用、待付款、待评论
  */
-let getClassOrder = (param) => {
-    const sql = `select * from orderTable where statu ="${param}"`
+let getClassOrder = (classfy, userName) => {
+    const sql = `select * from orderTable where statu ="${classfy}" and user_name="${userName}" order by id desc`
     return exe(sql).then(res => {
         if (res && res.length > 0) {
             return new successModel(res);

@@ -31,11 +31,14 @@ router.post('/api/updateStatu', (req, res, next) => {
 })
 
 
+
+
 /**
  * 获取所有的订单 (全部订单)
  */
 router.get('/api/getAllOrder', (req, res, next) => {
-    getAllOrder().then( result => {
+    const userName = req.query.username;
+    getAllOrder(userName).then( result => {
         res.json(result)
     })
 })
@@ -45,8 +48,9 @@ router.get('/api/getAllOrder', (req, res, next) => {
  * 根据相应的类型，获取订单，如未付款、待使用等
  */
 router.get('/api/getClassOrder', (req, res, next) => {
-    const param = req.query.classfy
-    getClassOrder(param).then( result => {
+    const classfy = req.query.classfy;
+    const username = req.query.username;
+    getClassOrder(classfy, username).then( result => {
         res.json(result);
     })
 })
@@ -78,5 +82,7 @@ router.get('/api/getClassOrder', (req, res, next) => {
         })
      })
  })
+
+
 
 module.exports = router;

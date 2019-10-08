@@ -47,9 +47,23 @@ let getShopDetail = (req) => {
      if (food) {
         food_sql = `select * from food where food.s_name=${shopName} and foodname = ${food} ;`
      }
-    return exe(food_sql).then((food) => {
-        if (food) {
-            return food;
+    return exe(food_sql).then((foodData) => {
+        if (foodData) {
+            if (req.session.userName) {
+                const sql = `select * from collect where foodname=${food} and user = "${req.session.userName}"`;
+                return exe(sql).then( result => {
+                    if (result && result.length > 0) { 
+                        //将collect这个字段的数据，依据用户名从collect表查出来的数据，合并collect这个状态;
+                        foodData[0].collect = result[0].collect;
+                        return foodData;
+                    }else{
+                        //若在collect表中，没有相应的数据，则说明没有收藏、直接返回food表的单条数据就行。
+                        return foodData;
+                    }
+                })
+            }else{
+                return foodData;
+            }
         }
     })
  }

@@ -10,6 +10,7 @@ var cityRouter = require('./routes/city');
 var usersRouter = require('./routes/users');
 var imgBarRouter = require('./routes/imgBar');
 var loginRouter = require('./routes/login');
+var collectRouter = require('./routes/collect');
 
 var Order = require('./routes/order');
 
@@ -76,6 +77,7 @@ app.use('/',imgBarRouter);
 app.use('/',loginRouter);
 app.use('/api', usersRouter);
 app.use('/',Order);
+app.use('/', collectRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

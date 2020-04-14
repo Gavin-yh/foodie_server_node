@@ -75,9 +75,10 @@ router.get('/api/getClassOrder', (req, res, next) => {
   */
   router.post('/api/deleteOrder', (req, res, next) => {
      const param = req.fields.number;
+     const username = req.fields.username;
      deleteOrderForNumber(param).then(result => {
         //删除后再将剩余的数据差出来
-        getClassOrder("未支付").then( result => {
+        getClassOrder("未支付", username).then( result => {
              res.json(result);
         })
      })

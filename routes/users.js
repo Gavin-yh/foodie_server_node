@@ -4,7 +4,8 @@ var router = express.Router();
 let {
   updateUserName,
   updateUserPas,
-  userRegister
+  userRegister,
+  selectAllUser
 } = require('../controller/users')
 
 //注册用户名验证，不能注册相同的用户名。
@@ -43,15 +44,23 @@ router.post('/update/userPas', (req, res, next) => {
 
 /**
  * 注册
+ * nameUniquCheck   中间件处理，用户名唯一性；
  */
 
 router.post('/user/register', nameUniquCheck, (req, res, next) => {
-  const { userName, userPas } = req.fields;
-  userRegister(userName, cryptoFun(userPas)).then( result => {
+  const { userName, userPas, time, power } = req.fields;
+  userRegister(userName, cryptoFun(userPas), time, power).then( result => {
     res.json(result)
   })
 })
 
 
+//后台系统查询所用的用户
+router.get('/user/allUser', (req, res, next) => {
+  let { today } = req.query
+  selectAllUser(today).then( (result) => {
+    res.json(result);
+  })
+})
 
 module.exports = router;

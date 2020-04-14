@@ -14,8 +14,9 @@ let {
  * 用户登入的路由
  */
 router.post('/api/login', (req, res, next) => {
-    const { userName, userPas } = req.fields;
-    userLogin( userName, cryptoFun(userPas) ).then( result => {
+    const { userName, userPas, power } = req.fields;
+    console.log(power)
+    userLogin( userName, cryptoFun(userPas), power).then( result => {
 
         //设置session
         req.session.userName = userName;
@@ -59,4 +60,6 @@ router.post('/api/login', (req, res, next) => {
          status: 0 
      })
  })
+
+
 module.exports = router;

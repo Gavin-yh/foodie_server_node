@@ -11,7 +11,7 @@ let getCommon = (req) => {
         if (res && res.length) {
             return new successModel(res);
         }else {
-            return new errorModel();
+            return new errorModel([]);
         }
     })
 }

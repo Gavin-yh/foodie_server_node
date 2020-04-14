@@ -6,7 +6,7 @@ const {successModel, errorModel } = require('../model/resModel')
  * home page allshop data
  */
 let getAllShop = () => {
-    const sql = "select * from allshop";
+    const sql = "select * from allshop where statu = 0";
     return exe(sql).then((res) => {
         if (res) {
             return new successModel(res);
